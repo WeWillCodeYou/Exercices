@@ -4,7 +4,7 @@ namespace MultiplicationOperator
 {
     public class MultiplicationOperator
     {
-        public int Multiply(int a, int b)
+        public static int Multiply(int a, int b)
         {
             int result = 0;
 

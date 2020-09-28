@@ -4,18 +4,14 @@ namespace MultiplicationOperatorTest
 {
     public class MultiplicationOperatorTest
     {
-        private MultiplicationOperator.MultiplicationOperator _multiplicationOperator;
-
         [SetUp]
         public void Setup()
         {
-            _multiplicationOperator = new MultiplicationOperator.MultiplicationOperator();
         }
 
         [TearDown]
         public void TearDown()
         {
-            _multiplicationOperator = null;
         }
 
         [TestCase(0, 0, 0)]
@@ -30,7 +26,7 @@ namespace MultiplicationOperatorTest
             // Arrange
 
             // Act
-            int result = _multiplicationOperator.Multiply(a, b);
+            int result = MultiplicationOperator.MultiplicationOperator.Multiply(a, b);
 
             // Assert
             Assert.AreEqual(expectedResult, result);
