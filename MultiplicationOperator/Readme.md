@@ -1,0 +1,1 @@
+Implementation of a method that multiplies two  given values without using the multiplication operator.
