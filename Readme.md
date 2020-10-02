@@ -1,0 +1,1 @@
+A collection of exercises with my proposal of solution.
