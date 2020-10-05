@@ -55,6 +55,11 @@ namespace Trenches
         private static int CalculateMinimumPathLength(int row, int col, int[,] terrain, int numRows, int numCols,
             int currentPathLength, int[,] alreadyVisitedTerrain)
         {
+            if (!IsInsideTerrain(row, col, numRows, numCols))
+            {
+                return Error;
+            }
+
             if (terrain[row, col] == Objective)
             {
                 return currentPathLength;
@@ -73,48 +78,36 @@ namespace Trenches
 
                 List<int> candidates = new List<int>();
 
-                if (IsInsideTerrain(row + 1, col, numRows, numCols))
-                {
-                    int candidate = CalculateMinimumPathLength(row + 1, col, terrain, numRows, numCols,
-                        currentPathLength + 1, alreadyVisitedTerrain);
+                int candidate = CalculateMinimumPathLength(row + 1, col, terrain, numRows, numCols,
+                    currentPathLength + 1, alreadyVisitedTerrain);
 
-                    if (candidate != Error)
-                    {
-                        candidates.Add(candidate);
-                    }
+                if (candidate != Error)
+                {
+                    candidates.Add(candidate);
                 }
 
-                if (IsInsideTerrain(row - 1, col, numRows, numCols))
-                {
-                    int candidate = CalculateMinimumPathLength(row - 1, col, terrain, numRows, numCols,
-                        currentPathLength + 1, alreadyVisitedTerrain);
+                candidate = CalculateMinimumPathLength(row - 1, col, terrain, numRows, numCols,
+                    currentPathLength + 1, alreadyVisitedTerrain);
 
-                    if (candidate != Error)
-                    {
-                        candidates.Add(candidate);
-                    }
+                if (candidate != Error)
+                {
+                    candidates.Add(candidate);
                 }
 
-                if (IsInsideTerrain(row, col + 1, numRows, numCols))
-                {
-                    int candidate = CalculateMinimumPathLength(row, col + 1, terrain, numRows, numCols,
-                        currentPathLength + 1, alreadyVisitedTerrain);
+                candidate = CalculateMinimumPathLength(row, col + 1, terrain, numRows, numCols,
+                    currentPathLength + 1, alreadyVisitedTerrain);
 
-                    if (candidate != Error)
-                    {
-                        candidates.Add(candidate);
-                    }
+                if (candidate != Error)
+                {
+                    candidates.Add(candidate);
                 }
 
-                if (IsInsideTerrain(row, col - 1, numRows, numCols))
-                {
-                    int candidate = CalculateMinimumPathLength(row, col - 1, terrain, numRows, numCols,
-                        currentPathLength + 1, alreadyVisitedTerrain);
+                candidate = CalculateMinimumPathLength(row, col - 1, terrain, numRows, numCols,
+                    currentPathLength + 1, alreadyVisitedTerrain);
 
-                    if (candidate != Error)
-                    {
-                        candidates.Add(candidate);
-                    }
+                if (candidate != Error)
+                {
+                    candidates.Add(candidate);
                 }
 
                 if (candidates.Any())
@@ -122,10 +115,6 @@ namespace Trenches
                     candidates.Sort();
                     return candidates.First();
                 }
-            }
-            else
-            {
-                return Error;
             }
 
             return Error;
