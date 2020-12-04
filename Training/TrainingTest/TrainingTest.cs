@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using NUnit.Framework;
 using Training;
 
@@ -1180,6 +1182,43 @@ namespace TrainingTest
 
             // Assert
             Assert.AreEqual(expectedResult, result);
+        }
+
+        [Test]
+        public void PerformanceTest()
+        {
+            // Arrange
+            int numStudents = (int) Math.Pow(10, 5);
+            int maxValue = (int) Math.Pow(10, 4);
+
+            Random rand = new Random();
+            int studentsToPick = rand.Next(1, 100);
+
+            List<int> students = new List<int>(numStudents);
+
+            for (int i = 0; i < numStudents; ++i)
+            {
+                students.Add(rand.Next(maxValue));
+            }
+
+            TestCase testCase = new TestCase(studentsToPick, students);
+
+            // Act
+            Stopwatch watch1 = Stopwatch.StartNew();
+
+            int result1 = Training.Training.GetMinimumTrainingRequiredV1(testCase);
+
+            watch1.Stop();
+
+            Stopwatch watch2 = Stopwatch.StartNew();
+
+            int result2 = Training.Training.GetMinimumTrainingRequiredV2(testCase);
+
+            watch2.Stop();
+
+            // Assert
+            Assert.AreEqual(result1, result2);
+            Assert.IsTrue(watch1.ElapsedMilliseconds <= watch2.ElapsedMilliseconds);
         }
     }
 }
